@@ -7,6 +7,7 @@
 
 #define t_ON_ms   1000
 #define t_OFF_ms  5000
+#define UVLO_voltage  2.8
 
 volatile const uint32_t t_ON_us = t_ON_ms * (uint32_t)1000;
 volatile const uint32_t t_OFF_us = t_OFF_ms * (uint32_t)1000;
@@ -32,7 +33,7 @@ void loop() {
     // put your main code here, to run repeatedly:
     float cel_voltage = analogRead(BatADC) * 5.0 / 1024;
 
-    if (cel_voltage < 2.8)
+    if (cel_voltage < UVLO_voltage)
     {
       Timer1.stop();
       digitalWrite(MosEnable, LOW);
