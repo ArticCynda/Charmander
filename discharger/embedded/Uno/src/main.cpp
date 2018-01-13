@@ -31,6 +31,14 @@ void setup() {
 void loop() {
     // put your main code here, to run repeatedly:
     float cel_voltage = analogRead(BatADC) * 5.0 / 1024;
+
+    if (cel_voltage < 2.8)
+    {
+      Timer1.stop();
+      digitalWrite(MosEnable, LOW);
+      Serial.println("Under voltage lockout reached. Test stopped.");
+      while (1);
+    }
     //cel_voltage = round(cel_voltage * 100)/100.0;
     Serial.print(String(micros(), DEC) + ",");
     Serial.println(cel_voltage, 2);
